@@ -28,11 +28,16 @@ export default function Home() {
     setResult(null)
     try {
       const body = { ...form, mode, ...(mode === 'evaluation' ? { question: evalForm.question, user_answer: evalForm.answer } : {}) }
-      const res = await fetch('/api/interview/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      })
+      const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/interview/generate`,
+          {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(body)
+  }
+)
       if (!res.ok) throw new Error(`Server error: ${res.status}`)
       const data = await res.json()
       setResult(data)
